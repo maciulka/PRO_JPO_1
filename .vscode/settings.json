@@ -1,0 +1,15 @@
+{
+    "security.workspace.trust.untrustedFiles": "open",
+    "python.defaultInterpreterPath": "C:\\Users\\macie\\AppData\\Local\\Programs\\Python\\Python39\\python.exe",
+    "NugetGallery.credentialProviderFolder": "{user-profile}/.nuget/plugins/netcore/CredentialProvider.Microsoft",
+    "NugetGallery.skipRestore": "false",
+    "NugetGallery.sources": [
+        "{\"name\":\"nuget.org\",\"url\":\"https://api.nuget.org/v3/index.json\"}"
+    ],
+    "git.autofetch": true,
+    "git.enableSmartCommit": true,
+    "code-runner.runInTerminal": true,
+    "code-runner.executorMap": {
+        "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt.exe -std=c++17 -IC:/vcpkg/installed/x64-mingw-static/include -LC:/vcpkg/installed/x64-mingw-static/lib -lfmt && $dir$fileNameWithoutExt.exe"
+    }
+}

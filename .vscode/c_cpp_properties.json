@@ -1,0 +1,15 @@
+{
+    "configurations": [
+      {
+        "name": "Win32",
+        "includePath": [
+          "${workspaceFolder}/**",
+          "vcpkg/installed/x64-mingw-static/include"
+        ],
+        "compilerPath": "C:/mingw64/bin/g++.exe",
+        "cppStandard": "c++17",
+        "intelliSenseMode": "windows-gcc-x64"
+      }
+    ],
+    "version": 4
+  }
