@@ -1,0 +1,18 @@
+cmake_minimum_required(VERSION 3.25)
+
+# Nazwa projektu i wersja języka
+project(ProJPO LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 17)
+
+# Ustawienie ścieżki do vcpkg
+set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+    CACHE STRING "Vcpkg toolchain file")
+
+# Wyszukaj biblioteki
+find_package(restclient-cpp CONFIG REQUIRED)
+
+# Tworzymy plik wykonywalny (exe)
+add_executable(App main.cpp)
+
+# Linkowanie biblioteki do projektu
+target_link_libraries(App PRIVATE restclient-cpp::restclient-cpp)

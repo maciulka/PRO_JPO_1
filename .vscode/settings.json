@@ -10,6 +10,6 @@
     "git.enableSmartCommit": true,
     "code-runner.runInTerminal": true,
     "code-runner.executorMap": {
-        "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt.exe -std=c++17 -IC:/vcpkg/installed/x64-mingw-static/include -LC:/vcpkg/installed/x64-mingw-static/lib -lfmt && $dir$fileNameWithoutExt.exe"
+        "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt.exe -std=c++17 -IC:/Users/macie/PRO_JPO_1/vcpkg/installed/x64-mingw-static/include -LC:/Users/macie/PRO_JPO_1/vcpkg/installed/x64-mingw-static/lib -lrestclient-cpp -lcurl && $dir$fileNameWithoutExt.exe"
     }
 }
