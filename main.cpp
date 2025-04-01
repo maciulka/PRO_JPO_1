@@ -1,11 +1,7 @@
-#include <iostream>
-#include <restclient-cpp/restclient.h>
+#include <fmt/core.h>
 
-int main() {
-    RestClient::Response r = RestClient::get("https://httpbin.org/get");
-
-    std::cout << "Status Code: " << r.code << "\n";
-    std::cout << "Response Body:\n" << r.body << "\n";
-
+int main()
+{
+    fmt::print("Hello World!\n");
     return 0;
 }
