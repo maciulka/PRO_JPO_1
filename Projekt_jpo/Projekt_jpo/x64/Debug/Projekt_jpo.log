@@ -1,5 +1,2 @@
 ﻿  main.cpp
-C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(941,44): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
-  Projekt_jpo.vcxproj -> C:\Users\macie\PRO_JPO_1\Projekt_jpo\x64\Debug\Projekt_jpo.exe
-  'pwsh.exe' is not recognized as an internal or external command,
-  operable program or batch file.
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(995,44): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
