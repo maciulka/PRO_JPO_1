@@ -5,7 +5,7 @@ implot
 
 # Wymagane narzędzia
 Visual Studio 2022+ (z komponentami: "Desktop development with C++", "Windows SDK")
-CMake (>=3.20)
+
 
 # Uwagi:
 # - DirectX 11 SDK jest częścią Windows SDK.
