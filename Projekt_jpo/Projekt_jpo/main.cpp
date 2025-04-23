@@ -804,7 +804,7 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
             ImGui::EndPopup();
         }
 
-        // Główne okno interfejsu
+        // Główne okno dashboard'u
         ImGui::SetNextWindowPos(ImVec2(0, 0));
         ImGui::SetNextWindowSize(io.DisplaySize);
         if (ImGui::Begin("AQI Dashboard", nullptr,
@@ -812,19 +812,19 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
             ImGuiWindowFlags_NoMove |
             ImGuiWindowFlags_NoSavedSettings)) {
 
-            // Panel sterowania lewy
+            // Panel sterowania po lewej stronie
             ImGui::BeginChild("ControlPanel", ImVec2(300, 0), true);
             if (onlineMode) {
-                ImGui::TextColored(ImVec4(1, 0.5, 0.5, 1), "(ONLINE)");
-            } else {
-                ImGui::TextColored(ImVec4(1, 0.5, 0.5, 1), "(OFFLINE)");
+                ImGui::TextColored(ImVec4(1, 0.5f, 0.5f, 1), "(ONLINE)");
+            }
+            else {
+                ImGui::TextColored(ImVec4(1, 0.5f, 0.5f, 1), "(OFFLINE)");
             }
             if (onlineMode) {
                 ImGui::Separator();
                 ImGui::RadioButton("Wszystkie stacje", &fetchMode, 0);
                 ImGui::RadioButton("Wg miasta", &fetchMode, 1);
                 ImGui::RadioButton("W promieniu", &fetchMode, 2);
-
                 if (fetchMode == 1) {
                     ImGui::InputText("Miasto", cityBuf, IM_ARRAYSIZE(cityBuf));
                 }
@@ -832,8 +832,16 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                     ImGui::InputText("Adres", addrBuf, IM_ARRAYSIZE(addrBuf));
                     ImGui::SliderInt("Promień_(km)", &radiusKm, 1, 1000);
                 }
-
                 if (ImGui::Button("Pobierz dane")) {
+                    if (!is_fetching_stations) {
+                        is_fetching_stations = true;
+                        int current_mode = fetchMode;
+                        std::string current_city = cityBuf;
+                        std::string current_addr = addrBuf;
+                        int current_radius = radiusKm;
+
+                        stations_future = std::async(std::launch::async,
+                            [current_mode, current_city, current_addr, current_radius]() -> std::vector<Station> {  
                     try {
                         if (fetchMode == 0) {
                             stations = FetchAll();
@@ -956,7 +964,6 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                         }
                     }
                 }
-
                 ImGui::SameLine();
                 if (ImGui::Button("Anuluj")) {
                     showLoadDialog = false;
