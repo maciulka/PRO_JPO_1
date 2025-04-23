@@ -1,0 +1,12 @@
+# Wymagane biblioteki (instalacja przez vcpkg)
+nlohmann-json
+imgui
+implot
+
+# Wymagane narzędzia
+Visual Studio 2022+ (z komponentami: "Desktop development with C++", "Windows SDK")
+CMake (>=3.20)
+
+# Uwagi:
+# - DirectX 11 SDK jest częścią Windows SDK.
+# - ImGui i ImPlot należy sklonować do katalogu ThirdParty/.
