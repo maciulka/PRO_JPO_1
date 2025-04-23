@@ -9,4 +9,5 @@ Visual Studio 2022+ (z komponentami: "Desktop development with C++", "Windows SD
 
 # Uwagi:
 # - DirectX 11 SDK jest częścią Windows SDK.
-# - ImGui i ImPlot należy sklonować do katalogu ThirdParty/.
+# - ImGui i ImPlot należy sklonować do katalogu "ThirdParty/" razem z backendami
+
