@@ -1,0 +1,68 @@
+﻿  main.cpp
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(474,31): error C2429: element funkcja językowa „powiązania ze strukturą” wymaga flagi kompilatora „/std:c++17”
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(475,38): error C2668: "std::stoi": niejednoznaczne wywołanie przeciążonej funkcji
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(264,35):
+      może to być „int std::stoi(const std::wstring &,size_t *,int)”
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(88,35):
+      lub       "int std::stoi(const std::string &,size_t *,int)"
+      C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(475,38):
+      podczas próby dopasowania listy argumentów "(unknown-type)"
+  
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(476,100): error C2059: błąd składniowy: „)”
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(477,88): error C2059: błąd składniowy: „)”
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(506,27): error C2429: element funkcja językowa „powiązania ze strukturą” wymaga flagi kompilatora „/std:c++17”
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(532,31): error C2668: "std::to_string": niejednoznaczne wywołanie przeciążonej funkcji
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(506,38):
+      może to być „std::string std::to_string(long double)”
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(502,38):
+      lub       "std::string std::to_string(float)"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(495,38):
+      lub       "std::string std::to_string(double)"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(491,38):
+      lub       "std::string std::to_string(unsigned __int64)"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(487,38):
+      lub       "std::string std::to_string(__int64)"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(483,38):
+      lub       "std::string std::to_string(unsigned long)"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(479,38):
+      lub       "std::string std::to_string(long)"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(475,38):
+      lub       "std::string std::to_string(unsigned int)"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(471,38):
+      lub       "std::string std::to_string(int)"
+      C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(532,31):
+      podczas próby dopasowania listy argumentów "(unknown-type)"
+  
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(532,51): error C2088: wbudowanego operatora „[” nie można zastosować do argumentu operacji typu „json”
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(919,44): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(999,47): error C2429: element funkcja językowa „powiązania ze strukturą” wymaga flagi kompilatora „/std:c++17”
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(1034,55): error C2429: element funkcja językowa „powiązania ze strukturą” wymaga flagi kompilatora „/std:c++17”
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(1039,67): error C2668: "std::to_string": niejednoznaczne wywołanie przeciążonej funkcji
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(506,38):
+      może to być „std::string std::to_string(long double)”
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(502,38):
+      lub       "std::string std::to_string(float)"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(495,38):
+      lub       "std::string std::to_string(double)"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(491,38):
+      lub       "std::string std::to_string(unsigned __int64)"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(487,38):
+      lub       "std::string std::to_string(__int64)"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(483,38):
+      lub       "std::string std::to_string(unsigned long)"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(479,38):
+      lub       "std::string std::to_string(long)"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(475,38):
+      lub       "std::string std::to_string(unsigned int)"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\string(471,38):
+      lub       "std::string std::to_string(int)"
+      C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(1039,67):
+      podczas próby dopasowania listy argumentów "(unknown-type)"
+  
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(1039,60): error C2088: wbudowanego operatora „+” nie można zastosować do argumentu operacji typu „_T”
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(1039,60): error C2088:         with
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(1039,60): error C2088:         [
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(1039,60): error C2088:             _T=std::basic_string<char,std::char_traits<char>,std::allocator<char>>
+C:\Users\macie\PRO_JPO_1\Projekt_jpo\Projekt_jpo\main.cpp(1039,60): error C2088:         ]
+  imgui_impl_dx11.cpp
+  imgui_impl_win32.cpp

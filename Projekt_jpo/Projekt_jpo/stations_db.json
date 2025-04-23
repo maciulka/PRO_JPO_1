@@ -1,0 +1,14 @@
+{
+  "2025-04-22 23:00:00": [
+    {
+      "city": "Białystok",
+      "id": 609,
+      "index": 24.3264705882353,
+      "region": "PODLASKIE",
+      "sensors": {
+        "4024": 31.6
+      },
+      "stationName": "Białystok, ul. Warszawska"
+    }
+  ]
+}
