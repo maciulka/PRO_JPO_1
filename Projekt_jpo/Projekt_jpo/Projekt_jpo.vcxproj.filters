@@ -44,4 +44,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="ThirdParty\Amble-Regular.ttf" />
+  </ItemGroup>
 </Project>

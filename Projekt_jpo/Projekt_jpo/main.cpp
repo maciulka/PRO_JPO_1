@@ -12,7 +12,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #define NOMINMAX
 #define _USE_MATH_DEFINES
-
+#define UNICODE
+#define _UNICODE
 #include <windows.h>
 #include <d3d11.h>
 #include <tchar.h>
@@ -261,11 +262,11 @@ void CreateRT() {
         hr = g_pd3dDevice->CreateRenderTargetView(pBack, nullptr, &g_mainRTV);
         pBack->Release();
         if (FAILED(hr)) {
-            MessageBoxA(nullptr, "Błąd tworzenia widoku renderowania", "Błąd D3D11", MB_ICONERROR);
+            MessageBox(nullptr, TEXT("Błąd tworzenia widoku renderowania"), TEXT("Błąd D3D11"), MB_ICONERROR);
         }
     }
     else {
-        MessageBoxA(nullptr, "Błąd pobierania bufora swapchain", "Błąd D3D11", MB_ICONERROR);
+        MessageBox(nullptr, TEXT("Błąd pobierania bufora swapchain"), TEXT("Błąd D3D11"), MB_ICONERROR);
     }
 }
 
@@ -537,6 +538,26 @@ bool LoadDB(const std::string& fn, std::vector<std::string>& dates, Station& sta
     }
 }
 
+///KONWERSJA Z U8 NA 16
+std::wstring Utf8ToUtf16(const std::string& utf8)
+{
+    if (utf8.empty()) return {};
+    int wsz = MultiByteToWideChar(
+        CP_UTF8, 0,
+        utf8.data(), (int)utf8.size(),
+        nullptr, 0
+    );
+    std::wstring wstr;
+    wstr.resize(wsz);
+    MultiByteToWideChar(
+        CP_UTF8, 0,
+        utf8.data(), (int)utf8.size(),
+        &wstr[0], wsz
+    );
+    return wstr;
+}
+
+
 /// Zapisuje dane stacji do pliku lokalnego
 void SaveDB(const std::string& fn, const std::vector<std::string>& dates, const Station& station) {
     try {
@@ -582,7 +603,8 @@ void SaveDB(const std::string& fn, const std::vector<std::string>& dates, const 
         if (o) o << j.dump(2);
     }
     catch (const std::exception& e) {
-        MessageBoxA(nullptr, e.what(), "Błąd zapisu", MB_ICONERROR);
+        std::wstring mess = Utf8ToUtf16(e.what());
+        MessageBox(nullptr, mess.c_str(), TEXT("Błąd zapisu"), MB_ICONERROR);
     }
 }
 
@@ -641,6 +663,7 @@ bool InitializeFonts(ImGuiIO& io, std::string& errorMsg, bool& showErrorPopup) {
     font_cfg.RasterizerMultiply = 1.2f;
 
     const char* fontPaths[] = {
+        "ThirdParty/Amble-Regular.ttf",
         "C:/Windows/Fonts/arial.ttf",
         "C:/Windows/Fonts/segoeui.ttf",
         "C:/Windows/Fonts/tahoma.ttf",
@@ -650,11 +673,14 @@ bool InitializeFonts(ImGuiIO& io, std::string& errorMsg, bool& showErrorPopup) {
     };
 
     ImFont* font = nullptr;
-    std::string loadedFontPath;
+	std::string loadedFontPath;
+    ImFontConfig cfg;
+    cfg.OversampleH = cfg.OversampleV = 3;
+    cfg.RasterizerMultiply = 1.2f;
 
-    for (const char* path : fontPaths) {
+    for (auto path : fontPaths) {
         if (GetFileAttributesA(path) != INVALID_FILE_ATTRIBUTES) {
-            font = io.Fonts->AddFontFromFileTTF(path, 16.0f, &font_cfg, ranges);
+            font = io.Fonts->AddFontFromFileTTF(path, 16.0f, &cfg, ranges);
             if (font) {
                 loadedFontPath = path;
                 break;
@@ -664,19 +690,19 @@ bool InitializeFonts(ImGuiIO& io, std::string& errorMsg, bool& showErrorPopup) {
 
     if (!font) {
         io.Fonts->AddFontDefault();
-        errorMsg = "Nie udało się załadować żadnej czcionki z polskimi znakami. Używam czcionki domyślnej.";
+        errorMsg = u8"Nie udało się załadować żadnej czcionki z polskimi znakami. Używam czcionki domyślnej.";
         showErrorPopup = true;
         return false;
     }
 
     font_cfg.MergeMode = true;
     if (!io.Fonts->AddFontDefault(&font_cfg)) {
-        errorMsg = "Ostrzeżenie: Załadowano czcionkę " + loadedFontPath + ", ale nie udało się dodać czcionki fallback.";
+        errorMsg = u8"Ostrzeżenie: Załadowano czcionkę " + loadedFontPath + ", ale nie udało się dodać czcionki fallback.";
         showErrorPopup = true;
     }
 
     if (!io.Fonts->Build()) {
-        errorMsg = "Krytyczny błąd: Nie udało się zbudować atlasu czcionek!";
+        errorMsg = u8"Krytyczny błąd: Nie udało się zbudować atlasu czcionek!";
         showErrorPopup = true;
         return false;
     }
@@ -738,7 +764,7 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     };
 
     if (!RegisterClassEx(&wc)) {
-        MessageBoxA(nullptr, "Błąd rejestracji klasy okna!", "Błąd", MB_ICONERROR);
+        MessageBox(nullptr, TEXT("Błąd rejestracji klasy okna!"), TEXT("Błąd"), MB_ICONERROR);
         return 1;
     }
 
@@ -758,7 +784,12 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     if (!CreateDevice(hwnd)) {
         CleanupDevice();
         UnregisterClass(wc.lpszClassName, wc.hInstance);
-        MessageBoxA(nullptr, "Błąd inicjalizacji DirectX 11!", "Błąd", MB_ICONERROR);
+        MessageBox(
+            nullptr,
+            TEXT("Błąd inicjalizacji DirectX 11!"),
+            TEXT("Błąd"),
+            MB_ICONERROR
+        );
         return 1;
     }
 
@@ -775,7 +806,7 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 
     if (!InitializeFonts(io, errorMsg, showErrorPopup)) {
         io.Fonts->AddFontDefault();
-        errorMsg = "Uwaga: Nie udało się załadować czcionki z polskimi znakami. Używam czcionki domyślnej.";
+        errorMsg = u8"Uwaga: Nie udało się załadować czcionki z polskimi znakami. Używam czcionki domyślnej.";
         showErrorPopup = true;
     }
     io.Fonts->Build();
@@ -802,12 +833,12 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     bool onlineMode = IsInternetAvailable();
 
     if (!IsInternetAvailable()) {
-        errorMsg = "Brak połączenia z Internetem!";
+        errorMsg = u8"Brak połączenia z Internetem!";
         showErrorPopup = true;
     }
     else {
         onlineMode = true;
-        errorMsg = "Połączenie z Internetem aktywne";
+        errorMsg = u8"Połączenie z Internetem aktywne";
         showErrorPopup = true;
     }
 
@@ -834,12 +865,12 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                     std::lock_guard<std::mutex> lock(stations_mutex);
                     stations = result;
                     dates.clear();
-                    errorMsg = "Pobrano nowe dane!";
+                    errorMsg = u8"Pobrano nowe dane!";
                     showErrorPopup = true;
                 }
             }
             catch (const std::exception& e) {
-                errorMsg = "Błąd sieciowy: " + std::string(e.what());
+                errorMsg = u8"Błąd sieciowy: " + std::string(e.what());
                 showErrorPopup = true;
             }
             is_fetching_stations = false;
@@ -852,10 +883,10 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 
         // Obsługa okienka błędów
         if (showErrorPopup) {
-            ImGui::OpenPopup("Błąd");
+            ImGui::OpenPopup(u8"Błąd");
             showErrorPopup = false;
         }
-        if (ImGui::BeginPopupModal("Błąd", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) {
+        if (ImGui::BeginPopupModal(u8"Błąd", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) {
             ImGui::TextWrapped("%s", errorMsg.c_str());
             if (ImGui::Button("OK", ImVec2(120, 0))) {
                 ImGui::CloseCurrentPopup();
@@ -917,7 +948,16 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                 // Wskaźnik ładowania
                 if (is_fetching_stations) {
                     ImGui::SameLine();
-                    ImGui::Text(" Ładowanie stacji...");
+                    // Animacja kropek przy ładowaniu
+                    static int dotCount = 0;
+                    static float lastChange = 0.0f;
+                    float t = ImGui::GetTime();
+                    if (t - lastChange > 0.5f) {
+                        dotCount = (dotCount + 1) % 4;
+                        lastChange = t;
+                    }
+                    const char* dots[4] = { "", ".", "..", "..." };
+                    ImGui::Text(u8" Ładowanie stacji%s", dots[dotCount]);
                 }
             }
             static bool showSaveDialog = false;
@@ -954,12 +994,12 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                             filename += ".json";
                         }
                         SaveDB(filename, dates, stations[selStation]);
-                        errorMsg = "Zapisano dane jako: " + filename;
+                        errorMsg = u8"Zapisano dane jako: " + filename;
                         showErrorPopup = true;
                         showSaveDialog = false;
                     }
                     catch (const std::exception& e) {
-                        errorMsg = "Błąd zapisu: " + std::string(e.what());
+                        errorMsg = u8"Błąd zapisu: " + std::string(e.what());
                         showErrorPopup = true;
                     }
                 }
@@ -1076,7 +1116,7 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                                 }
                             }
                             catch (const NetworkException& e) {
-                                errorMsg = "Błąd sieciowy: " + std::string(e.what());
+                                errorMsg = u8"Błąd sieciowy: " + std::string(e.what());
                                 showErrorPopup = true;
                                 onlineMode = false;
                                 if (!station.sensor_history.empty()) {
@@ -1183,17 +1223,17 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                                             days = std::min(50, static_cast<int>(data.size()));
                                         }
                                         else {
-                                            errorMsg = "Brak danych do analizy";
+                                            errorMsg = u8"Brak danych do analizy";
                                             showErrorPopup = true;
                                         }
                                     }
                                     else {
-                                        errorMsg = "Brak prawidłowych danych do wyświetlenia";
+                                        errorMsg = u8"Brak prawidłowych danych do wyświetlenia";
                                         showErrorPopup = true;
                                     }
                                 }
                                 catch (const NetworkException& e) {
-                                    errorMsg = "Błąd pobierania: " + std::string(e.what());
+                                    errorMsg = u8"Błąd pobierania: " + std::string(e.what());
                                     showErrorPopup = true;
                                     onlineMode = false;
                                 }
